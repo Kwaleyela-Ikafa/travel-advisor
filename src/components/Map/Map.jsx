@@ -35,12 +35,16 @@
 // export default Map;
 import React from "react";
 import GoogleMapReact from 'google-map-react';
+import { Paper, Typography, useMediaQuery } from '@material-ui/core';
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
+// import Rating from '@material-ui/lab/Rating';
+
 import useStyles from './styles.js';
 
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-export default function Map(){
+const Map = ({setCoordinates, setBounds, coordinates }) => {
 
   const classes = useStyles();
 
@@ -57,8 +61,20 @@ export default function Map(){
     <div className={classes.mapContainer}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyC1RKqZhS9UCD26X2LpbNoOhxPKqxdjFzU" }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
+        // defaultCenter={defaultProps.center}
+        // defaultZoom={defaultProps.zoom}
+        defaultCenter={coordinates}
+        center={coordinates}
+        defaultZoom={14}
+        margin={[50, 50, 50, 50]}
+        options={''}
+        onChange={(e) => {
+            console.log(e);
+
+            setCoordinates({ lat: e.center.lat, lng: e.center.lng });
+            setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
+        }}
+        onChildClick={''}
       >
         <AnyReactComponent
           lat={59.955413}
@@ -69,3 +85,5 @@ export default function Map(){
     </div>
   );
 }
+
+export default Map;
