@@ -1,86 +1,58 @@
-// import React from 'react';
-// import GoogleMapReact from 'google-map-react';
-// import { Paper, Typography, useMediaQuery } from '@material-ui/core';
-// import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
-// import Rating from '@material-ui/lab/Rating';
-
-// import useStyles from './styles.js';
-
-// const Map = ({setCoordinates, setBounds, coordinates }) => {
-//   const isMobile = useMediaQuery('(min-width:600px)');
-//   const classes = useStyles();
-
-//   return (
-//     <div className={classes.mapContainer}>
-//       {/* <GoogleMapReact
-//         bootstrapURLKeys={{ key: 'AIzaSyC1RKqZhS9UCD26X2LpbNoOhxPKqxdjFzU' }}
-//         defaultCenter={coordinates}
-//         center={coordinates}
-//         defaultZoom={14}
-//         margin={[50, 50, 50, 50]}
-//         options={''}
-//         onChange={(e) => {
-//             console.log(e);
-
-//             setCoordinates({ lat: e.center.lat, lng: e.center.lng });
-//             setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
-//         }}
-//         onChildClick={''}
-//       >
-//       </GoogleMapReact> */}
-//     </div>
-//   );
-// };
-
-// export default Map;
-import React from "react";
+import React, { useState } from "react";
 import GoogleMapReact from 'google-map-react';
 import { Paper, Typography, useMediaQuery } from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
-// import Rating from '@material-ui/lab/Rating';
+import Rating from '@material-ui/lab/Rating';
 
 import useStyles from './styles.js';
 
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-const Map = ({setCoordinates, setBounds, coordinates }) => {
-
+const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked }) => {
   const classes = useStyles();
-
-  const defaultProps = {
-    center: {
-      lat: 10.99835602,
-      lng: 77.01502627
-    },
-    zoom: 11
-  };
+  const isDesktop = useMediaQuery('(min-width:600px)');
 
   return (
     // Important! Always set the container height explicitly
     <div className={classes.mapContainer}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyC1RKqZhS9UCD26X2LpbNoOhxPKqxdjFzU" }}
-        // defaultCenter={defaultProps.center}
-        // defaultZoom={defaultProps.zoom}
         defaultCenter={coordinates}
         center={coordinates}
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
         options={''}
         onChange={(e) => {
-            console.log(e);
-
             setCoordinates({ lat: e.center.lat, lng: e.center.lng });
             setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
         }}
-        onChildClick={''}
+        onChildClick={(child) => setChildClicked(child)}
       >
-        <AnyReactComponent
-          lat={59.955413}
-          lng={30.337844}
-          text="My Marker"
-        />
+        {places?.map((place, i) => (
+          <div
+            className={classes.markerContainer}
+            lat={Number(place.latitude)}
+            lng={Number(place.longitude)}
+            key={i}
+          >
+            {
+              !isDesktop ? (
+                <LocationOnOutlinedIcon color="primary" fontSize="large" />
+              ) : (
+                <Paper elevation={3} className={classes.paper}>
+                <Typography className={classes.typography} variant="subtitle2" gutterBottom>
+                  {place.name}
+                </Typography>
+                <img
+                  className={classes.pointer}
+                  src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
+                  alt={place.name}
+                />
+                <Rating name="read-only" size="small" value={Number(place.rating)} readOnly />
+              </Paper>
+              )
+            }
+          </div>
+        ))}
       </GoogleMapReact>
     </div>
   );
