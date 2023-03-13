@@ -32,7 +32,7 @@ function App() {
   }, [rating]);
 
   useEffect(() => {
-    if (bounds) {
+    if (bounds.sw && bounds.ne) {
     setIsLoading(true);
 
     getPlacesData(type, bounds.sw, bounds.ne)
@@ -42,7 +42,7 @@ function App() {
             setIsLoading(false);
         });
     }
-  }, [type, coordinates, bounds]);
+  }, [type, bounds]);
 
 
   return (
