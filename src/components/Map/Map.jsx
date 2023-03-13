@@ -5,6 +5,7 @@ import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import Rating from '@material-ui/lab/Rating';
 
 import useStyles from './styles.js';
+import mapStyles from './mapStyles';
 
 
 const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked }) => {
@@ -15,12 +16,12 @@ const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked })
     // Important! Always set the container height explicitly
     <div className={classes.mapContainer}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyC1RKqZhS9UCD26X2LpbNoOhxPKqxdjFzU" }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
         defaultCenter={coordinates}
         center={coordinates}
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
-        options={''}
+        options={{ disableDefaultUI: true, zoomControl: true, styles: mapStyles }}
         onChange={(e) => {
             setCoordinates({ lat: e.center.lat, lng: e.center.lng });
             setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
