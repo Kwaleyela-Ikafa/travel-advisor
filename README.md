@@ -1,10 +1,23 @@
-# Getting Started with Create React App
+# Travel Advisor
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![image](https://user-images.githubusercontent.com/86778388/224676793-7c1729fe-6a68-496c-954f-183133fd57b0.png)
 
-## Available Scripts
 
-In the project directory, you can run:
+> This is a Travel Companion Application using Google Maps.
+With Geolocation, Google Maps API, Searching for places, Fetching restaurants,
+hotels and attractions based on location from specialized Rapid APIs, data filtering and much more.
+
+## Live Demo
+[Travel Advisor](rad-pasca-92ff12.netlify.app)
+
+## Note:
+
+#### Project has some problems to be fixed & features to add like:
+- Scroll Into View when user clicks on an item on the map
+- Weather API to let users know how the weather is in the city/country
+
+
+# Getting started
 
 ### `npm start`
 
