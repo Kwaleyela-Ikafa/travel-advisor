@@ -8,7 +8,7 @@ With Geolocation, Google Maps API, Searching for places, Fetching restaurants,
 hotels and attractions based on location from specialized Rapid APIs, data filtering and much more.
 
 ## Live Demo
-[Travel Advisor](rad-pasca-92ff12.netlify.app)
+[Travel Advisor](https://rad-pasca-92ff12.netlify.app)
 
 ## Note:
 
